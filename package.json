@@ -1,0 +1,26 @@
+{
+  "name": "hagz-push-notifications",
+  "version": "1.0.0",
+  "description": "Server-side push notification sender and match reminder system for HagzApp",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "cron": "node cronJob.js",
+    "match-reminders": "node matchReminderSender.js",
+    "game-invitations": "node gameInvitationSender.js",
+    "test": "node pushNotificationSender.js",
+    "install-deps": "npm install"
+  },
+  "dependencies": {
+    "expo-server-sdk": "^3.7.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "node-cron": "^3.0.3",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "keywords": ["expo", "push-notifications", "hagz", "match-reminders", "cron"],
+  "author": "HagzApp",
+  "license": "MIT"
+}
+
