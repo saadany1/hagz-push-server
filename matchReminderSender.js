@@ -102,7 +102,8 @@ async function processMatchReminder(match) {
         notificationType: 'match_reminder'
       },
       priority: 'high',
-      badge: 1
+      badge: 1,
+      channelId: 'NL' // Use HAGZ notification channel
     }));
 
     console.log(`📱 Sending ${messages.length} notifications for match ${match.booking_id}`);

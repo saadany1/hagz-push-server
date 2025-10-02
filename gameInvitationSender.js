@@ -92,7 +92,8 @@ async function sendGameInvitationNotification(invitationData) {
         notificationType: 'game_invitation'
       },
       priority: 'high',
-      badge: 1
+      badge: 1,
+      channelId: 'NL' // Use HAGZ notification channel
     };
 
     console.log(`📱 Sending invitation notification to ${targetUser.email}`);

@@ -41,6 +41,7 @@ async function sendPushNotifications(tokens, title, body, data = {}) {
       body: body,
       data: data,
       priority: 'high',
+      channelId: 'NL', // Use HAGZ notification channel instead of default
     });
   }
 
