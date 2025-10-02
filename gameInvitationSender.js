@@ -9,7 +9,12 @@ const expo = new Expo();
 
 // Initialize Supabase (you'll need to set these environment variables)
 const supabaseUrl = process.env.SUPABASE_URL || 'https://wlzuzohbuonvfnembyyl.supabase.co';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndsenV6b2hidW9udmZuZW1ieXlsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjQ3OTc0NiwiZXhwIjoyMDcyMDU1NzQ2fQ.YourServiceRoleKeyHere';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseServiceKey) {
+  console.error('❌ SUPABASE_SERVICE_ROLE_KEY environment variable is required');
+  process.exit(1);
+}
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 /**

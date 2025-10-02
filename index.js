@@ -10,7 +10,12 @@ const PORT = process.env.PORT || 3000;
 
 // Initialize Supabase
 const supabaseUrl = process.env.SUPABASE_URL || 'https://wlzuzohbuonvfnembyyl.supabase.co';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndsenV6b2hidW9udmZuZW1ieXlsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjQ3OTc0NiwiZXhwIjoyMDcyMDU1NzQ2fQ.YourServiceRoleKeyHere';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseServiceKey) {
+  console.error('❌ SUPABASE_SERVICE_ROLE_KEY environment variable is required');
+  process.exit(1);
+}
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // Middleware
@@ -123,10 +128,19 @@ app.post('/send-user-notification', async (req, res) => {
   }
 });
 
+// Validate environment before starting
+console.log('🔍 Environment check:', {
+  port: PORT,
+  supabaseUrl: supabaseUrl,
+  supabaseKeyPresent: !!supabaseServiceKey,
+  nodeEnv: process.env.NODE_ENV
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Push notification server running on port ${PORT}`);
   console.log(`📱 Health check: http://localhost:${PORT}/health`);
+  console.log(`🔑 Supabase connection: ${supabaseUrl}`);
 });
 
 module.exports = app;
