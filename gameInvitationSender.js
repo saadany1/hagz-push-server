@@ -72,14 +72,14 @@ async function sendGameInvitationNotification(invitationData) {
     const inviterName = inviterUser.full_name || inviterUser.email || 'Someone';
     
     // Create notification content
-    const title = '⚽ Game Invitation';
+    const title = 'HAGZ';
     const message = `${inviterName} invited you to join a match at ${pitchName} on ${formatDateTime(gameDate, gameTime)}`;
 
     // Prepare notification message
     const notificationMessage = {
       to: targetUser.push_token,
       sound: 'notification_sound.wav',
-      title: title,
+      title: 'HAGZ',
       body: message,
       data: {
         screen: 'GameDetails',
@@ -92,8 +92,7 @@ async function sendGameInvitationNotification(invitationData) {
         notificationType: 'game_invitation'
       },
       priority: 'high',
-      badge: 1,
-      channelId: 'NL' // Use HAGZ notification channel
+      badge: 1
     };
 
     console.log(`📱 Sending invitation notification to ${targetUser.email}`);

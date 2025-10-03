@@ -84,14 +84,14 @@ async function processMatchReminder(match) {
     const matchTime = formatMatchTime(match.match_date, match.match_time);
     const matchTypeText = match.match_type === 'ranked' ? 'Ranked Match' : 'Friendly Match';
     
-    const title = `⚽ ${matchTypeText} Reminder`;
+    const title = 'HAGZ';
     const message = `Your match at ${match.pitch_name} starts in 2 hours (${matchTime}). Get ready!`;
 
     // Prepare notification messages
     const messages = validParticipants.map(participant => ({
       to: participant.push_token,
       sound: 'notification_sound.wav',
-      title: title,
+      title: 'HAGZ',
       body: message,
       data: {
         screen: 'GameDetails',
@@ -102,8 +102,7 @@ async function processMatchReminder(match) {
         notificationType: 'match_reminder'
       },
       priority: 'high',
-      badge: 1,
-      channelId: 'NL' // Use HAGZ notification channel
+      badge: 1
     }));
 
     console.log(`📱 Sending ${messages.length} notifications for match ${match.booking_id}`);

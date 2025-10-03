@@ -93,6 +93,35 @@ app.post('/send-game-invitation', async (req, res) => {
   }
 });
 
+// Test endpoint to send notification to specific token
+app.post('/test-token', async (req, res) => {
+  try {
+    const { token, message = 'Test notification from server' } = req.body;
+
+    if (!token) {
+      return res.status(400).json({ error: 'Token is required' });
+    }
+
+    console.log('🧪 Testing token:', token.substring(0, 20) + '...');
+
+    // Send notification directly to token
+    const result = await sendPushNotifications([token], 'HAGZ', message, { 
+      test: true,
+      timestamp: new Date().toISOString()
+    });
+
+    res.json({
+      success: true,
+      result: result,
+      tokenUsed: token.substring(0, 20) + '...'
+    });
+
+  } catch (error) {
+    console.error('Test token error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Send notification to specific user
 app.post('/send-user-notification', async (req, res) => {
   try {

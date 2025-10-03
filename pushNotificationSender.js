@@ -37,11 +37,10 @@ async function sendPushNotifications(tokens, title, body, data = {}) {
     messages.push({
       to: pushToken,
       sound: 'notification_sound.wav',
-      title: title,
+      title: 'HAGZ',
       body: body,
       data: data,
       priority: 'high',
-      channelId: 'NL', // Use HAGZ notification channel instead of default
     });
   }
 
@@ -52,11 +51,18 @@ async function sendPushNotifications(tokens, title, body, data = {}) {
   // Send the chunks to the Expo push notification service
   for (const chunk of chunks) {
     try {
+      console.log('📤 Sending chunk with messages:', chunk.map(m => ({
+        to: m.to.substring(0, 20) + '...',
+        title: m.title,
+        body: m.body?.substring(0, 50) + '...'
+      })));
+      
       const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-      console.log('📨 Sent chunk:', ticketChunk);
+      console.log('📨 Sent chunk response:', ticketChunk);
       tickets.push(...ticketChunk);
     } catch (error) {
       console.error('❌ Error sending chunk:', error);
+      console.error('❌ Chunk details:', chunk);
     }
   }
 
@@ -68,6 +74,7 @@ async function sendPushNotifications(tokens, title, body, data = {}) {
   tickets.forEach((ticket, index) => {
     if (ticket.status === 'ok') {
       successCount++;
+      console.log(`✅ Successfully sent to ${tokens[index].substring(0, 20)}...`);
     } else {
       failureCount++;
       console.error(`❌ Failed to send notification to ${tokens[index]}:`, ticket);
@@ -75,6 +82,7 @@ async function sendPushNotifications(tokens, title, body, data = {}) {
       // Collect invalid tokens for cleanup
       if (ticket.details && ticket.details.error === 'DeviceNotRegistered') {
         invalidTokens.push(tokens[index]);
+        console.log(`🧹 Marking token as invalid: ${tokens[index].substring(0, 20)}...`);
       }
     }
   });
